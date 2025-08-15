@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  mercor-automation:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: mercor-automation
+    environment:
+      - AIRTABLE_API_KEY=${AIRTABLE_API_KEY}
+      - AIRTABLE_BASE_ID=${AIRTABLE_BASE_ID}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - MAX_TOKENS_PER_REQUEST=${MAX_TOKENS_PER_REQUEST:-1500}
+      - LLM_MODEL=${LLM_MODEL:-gpt-3.5-turbo}
+    volumes:
+      # Mount source code for development
+      - .:/app
+      # Mount logs directory
+      - ./logs:/app/logs
+    working_dir: /app
+    command: ["python", "main.py", "status"]
+    restart: unless-stopped
+    # Add resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+
+  # Optional: Redis for caching (if needed in future)
+  redis:
+    image: redis:7-alpine
+    container_name: mercor-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  # Optional: PostgreSQL for local data storage (if needed)
+  postgres:
+    image: postgres:15-alpine
+    container_name: mercor-postgres
+    environment:
+      POSTGRES_DB: mercor_automation
+      POSTGRES_USER: mercor
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  redis_data:
+  postgres_data:
+
+networks:
+  default:
+    name: mercor-network
