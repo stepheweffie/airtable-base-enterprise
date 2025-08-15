@@ -56,7 +56,7 @@ jobs:
       run: |
         python -c "
         import config
-        print('✅ Configuration module loads successfully')
+        print('PASS: Configuration module loads successfully')
         # Test with mock values
         import os
         os.environ['AIRTABLE_API_KEY'] = 'test_key'
@@ -64,9 +64,9 @@ jobs:
         os.environ['OPENAI_API_KEY'] = 'test_openai'
         try:
           config.validate_config()
-          print('✅ Configuration validation works')
+          print('PASS: Configuration validation works')
         except Exception as e:
-          print(f'⚠️  Config validation: {e}')
+          print(f'WARNING: Config validation: {e}')
         "
     
     - name: Test component imports
@@ -75,30 +75,30 @@ jobs:
         # Test all main components can be imported
         try:
           from json_compressor import JSONCompressor
-          print('✅ JSONCompressor imports successfully')
+          print('PASS: JSONCompressor imports successfully')
         except Exception as e:
-          print(f'❌ JSONCompressor import failed: {e}')
+          print(f'FAIL: JSONCompressor import failed: {e}')
           exit(1)
         
         try:
           from shortlister import Shortlister  
-          print('✅ Shortlister imports successfully')
+          print('PASS: Shortlister imports successfully')
         except Exception as e:
-          print(f'❌ Shortlister import failed: {e}')
+          print(f'FAIL: Shortlister import failed: {e}')
           exit(1)
         
         try:
           from llm_evaluator import LLMEvaluator
-          print('✅ LLMEvaluator imports successfully') 
+          print('PASS: LLMEvaluator imports successfully') 
         except Exception as e:
-          print(f'❌ LLMEvaluator import failed: {e}')
+          print(f'FAIL: LLMEvaluator import failed: {e}')
           exit(1)
         "
     
     - name: Test CLI interface
       run: |
         python main.py --help
-        echo "✅ CLI interface works"
+        echo "PASS: CLI interface works"
     
     - name: Run unit tests (if they exist)
       run: |
@@ -145,9 +145,9 @@ jobs:
         files=("README.md" "AIRTABLE_SCHEMA.md" "QUICK_START.md" ".env.example" "requirements.txt")
         for file in "${files[@]}"; do
           if [ -f "$file" ]; then
-            echo "✅ $file exists"
+            echo "PASS: $file exists"
           else
-            echo "❌ $file missing"
+            echo "FAIL: $file missing"
             exit 1
           fi
         done
@@ -156,9 +156,9 @@ jobs:
         sections=("Overview" "Setup Instructions" "Usage Guide" "Troubleshooting")
         for section in "${sections[@]}"; do
           if grep -q "$section" README.md; then
-            echo "✅ README contains $section"
+            echo "PASS: README contains $section"
           else
-            echo "❌ README missing $section"
+            echo "FAIL: README missing $section"
             exit 1
           fi
         done
@@ -167,9 +167,9 @@ jobs:
       run: |
         echo "Checking .env.example format..."
         if grep -q "AIRTABLE_API_KEY" .env.example && grep -q "AIRTABLE_BASE_ID" .env.example; then
-          echo "✅ Environment example file is properly formatted"
+          echo "PASS: Environment example file is properly formatted"
         else
-          echo "❌ Environment example file missing required variables"
+          echo "FAIL: Environment example file missing required variables"
           exit 1
         fi
 
@@ -184,14 +184,14 @@ jobs:
     
     - name: Deploy to staging
       run: |
-        echo "🚀 Deploying to staging environment"
+        echo "Deploying to staging environment"
         # Add your staging deployment commands here
         # For example, deploying to AWS, Heroku, or other platforms
         echo "This would deploy the application to staging"
         
     - name: Run staging tests
       run: |
-        echo "🧪 Running staging integration tests"
+        echo "Running staging integration tests"
         # Add staging-specific tests here
         echo "Staging tests completed"
 
@@ -206,13 +206,13 @@ jobs:
     
     - name: Deploy to production
       run: |
-        echo "🚀 Deploying to production environment"
+        echo "Deploying to production environment"
         # Add your production deployment commands here
         echo "This would deploy the application to production"
         
     - name: Create deployment notification
       run: |
-        echo "📢 Production deployment completed successfully"
+        echo "Production deployment completed successfully"
         # Add notification logic (Slack, email, etc.)
 
   docker-build:

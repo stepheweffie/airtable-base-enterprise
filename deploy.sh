@@ -4,46 +4,46 @@
 
 set -e
 
-echo "🚀 Mercor Airtable Automation - Deployment Script"
+echo "Mercor Airtable Automation - Deployment Script"
 echo "=================================================="
 
 # Check if Docker is running
 if ! docker info >/dev/null 2>&1; then
-    echo "❌ Docker is not running. Please start Docker and try again."
+    echo "ERROR: Docker is not running. Please start Docker and try again."
     exit 1
 fi
 
-echo "✅ Docker is running"
+echo "SUCCESS: Docker is running"
 
 # Check if .env file exists
 if [ ! -f ".env" ]; then
-    echo "⚠️  .env file not found. Creating from example..."
+    echo "WARNING: .env file not found. Creating from example..."
     cp .env.example .env
-    echo "📝 Please edit .env file with your actual API credentials before deployment"
+    echo "INFO: Please edit .env file with your actual API credentials before deployment"
     echo "   Required: AIRTABLE_API_KEY, AIRTABLE_BASE_ID, OPENAI_API_KEY"
     exit 1
 fi
 
-echo "✅ Environment file found"
+echo "SUCCESS: Environment file found"
 
 # Build the Docker image
-echo "🔨 Building Docker image..."
+echo "INFO: Building Docker image..."
 docker build -t mercor-automation:latest .
 
-echo "✅ Docker image built successfully"
+echo "SUCCESS: Docker image built successfully"
 
 # Run with docker-compose
-echo "🚀 Starting application with docker-compose..."
+echo "INFO: Starting application with docker-compose..."
 docker-compose up -d
 
-echo "✅ Application started successfully"
+echo "SUCCESS: Application started successfully"
 
 # Show status
-echo "📊 Container status:"
+echo "INFO: Container status:"
 docker-compose ps
 
 echo ""
-echo "🎉 Deployment complete!"
+echo "SUCCESS: Deployment complete!"
 echo ""
 echo "Available commands:"
 echo "  docker-compose logs -f mercor-automation  # View logs"
