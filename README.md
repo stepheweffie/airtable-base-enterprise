@@ -54,15 +54,17 @@ The system uses 5 interconnected Airtable tables:
 ### 1. Environment Setup
 
 ```bash
-# Clone/download the project
-cd mercor-airtable-automation
+# Clone the project
+git clone https://github.com/stepheweffie/airtable-base-enterprise.git
+cd airtable-base-enterprise
+git checkout airtable-base
 
 # Create virtual environment
 python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
-pip install airtable-python-wrapper openai python-dotenv requests
+pip install -r requirements.txt
 ```
 
 ### 2. Airtable Configuration
