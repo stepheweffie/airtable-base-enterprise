@@ -3,8 +3,8 @@
 ## Problem Summary
 The Airtable integration is returning 404 errors because the base ID in the `.env` file is incorrectly formatted.
 
-**Current Issue**: `AIRTABLE_BASE_ID=patTcMH6bnGuHb3uT` 
-**Problem**: This looks like a Personal Access Token (PAT) prefix, not a base ID.
+**Issue**: Invalid base ID format in `.env` file.
+**Problem**: Base IDs must start with 'app' and be exactly 17 characters.
 
 ## Root Cause
 Airtable base IDs must:
@@ -49,10 +49,10 @@ python main.py status
 ```
 
 ## Current Status
-- ✅ API Key appears to be valid format
-- ❌ Base ID is incorrectly formatted
-- ❌ Base likely doesn't exist or isn't accessible
-- ✅ Code structure and configuration files are correct
+- SUCCESS: API Key appears to be valid format
+- ERROR: Base ID is incorrectly formatted
+- ERROR: Base likely doesn't exist or isn't accessible
+- SUCCESS: Code structure and configuration files are correct
 
 ## Next Steps After Base Creation
 Once you have the correct base ID:

@@ -14,7 +14,7 @@ def update_env_file(base_id, openai_key=None):
     env_file = Path('.env')
     
     if not env_file.exists():
-        print("❌ .env file not found. Creating from template...")
+        print("ERROR: .env file not found. Creating from template...")
         env_template = """# Airtable Configuration
 AIRTABLE_API_KEY="{airtable_key}"
 AIRTABLE_BASE_ID={base_id}
@@ -32,7 +32,7 @@ LLM_MODEL=gpt-3.5-turbo
                 base_id=base_id,
                 openai_key=openai_key or "YOUR_OPENAI_API_KEY_HERE"
             ))
-        print("✅ Created .env file template")
+        print("SUCCESS: Created .env file template")
         return
 
     # Read existing .env file
@@ -44,10 +44,10 @@ LLM_MODEL=gpt-3.5-turbo
     for line in lines:
         if line.startswith('AIRTABLE_BASE_ID='):
             updated_lines.append(f'AIRTABLE_BASE_ID={base_id}\n')
-            print(f"✅ Updated AIRTABLE_BASE_ID to: {base_id}")
+            print(f"SUCCESS: Updated AIRTABLE_BASE_ID to: {base_id}")
         elif line.startswith('OPENAI_API_KEY=') and openai_key:
             updated_lines.append(f'OPENAI_API_KEY={openai_key}\n')
-            print(f"✅ Updated OPENAI_API_KEY")
+            print(f"SUCCESS: Updated OPENAI_API_KEY")
         else:
             updated_lines.append(line)
     
@@ -55,29 +55,29 @@ LLM_MODEL=gpt-3.5-turbo
     with open('.env', 'w') as f:
         f.writelines(updated_lines)
     
-    print("✅ Environment file updated successfully!")
+    print("SUCCESS: Environment file updated successfully!")
 
 def test_configuration():
     """Test the configuration to make sure it works"""
-    print("\n🔍 Testing configuration...")
+    print("\nTesting configuration...")
     
     try:
         import config
         config.validate_config()
-        print("✅ Configuration validation passed!")
+        print("SUCCESS: Configuration validation passed!")
         
         # Test Airtable connection (without making actual API calls)
-        print(f"✅ Airtable API Key: {config.AIRTABLE_API_KEY[:10]}...")
-        print(f"✅ Airtable Base ID: {config.AIRTABLE_BASE_ID}")
-        print(f"✅ OpenAI API Key: {config.OPENAI_API_KEY[:10] if config.OPENAI_API_KEY else 'Not set'}...")
+        print(f"SUCCESS: Airtable API Key: {config.AIRTABLE_API_KEY[:10]}...")
+        print(f"SUCCESS: Airtable Base ID: {config.AIRTABLE_BASE_ID}")
+        print(f"SUCCESS: OpenAI API Key: {config.OPENAI_API_KEY[:10] if config.OPENAI_API_KEY else 'Not set'}...")
         
         return True
     except Exception as e:
-        print(f"❌ Configuration error: {e}")
+        print(f"ERROR: Configuration error: {e}")
         return False
 
 def main():
-    print("🚀 Mercor Airtable Automation - Environment Setup")
+    print("Mercor Airtable Automation - Environment Setup")
     print("=" * 50)
     
     if len(sys.argv) < 2:
@@ -90,16 +90,16 @@ def main():
     base_id = sys.argv[1]
     openai_key = sys.argv[2] if len(sys.argv) > 2 else None
     
-    print(f"📝 Setting up environment with:")
+    print(f"Setting up environment with:")
     print(f"   Base ID: {base_id}")
     print(f"   OpenAI Key: {'Provided' if openai_key else 'Not provided (will use existing or leave empty)'}")
     
     # Validate base ID format
     if not base_id.startswith('app') or len(base_id) != 17:
-        print("⚠️  Warning: Base ID doesn't match expected format (should be 'app' + 14 characters)")
+        print("WARNING: Base ID doesn't match expected format (should be 'app' + 14 characters)")
         confirm = input("Continue anyway? (y/N): ")
         if confirm.lower() != 'y':
-            print("❌ Setup cancelled")
+            print("ERROR: Setup cancelled")
             sys.exit(1)
     
     # Update environment file
@@ -107,13 +107,13 @@ def main():
     
     # Test configuration
     if test_configuration():
-        print("\n🎉 Setup completed successfully!")
+        print("\nSUCCESS: Setup completed successfully!")
         print("\nNext steps:")
         print("1. Verify your Airtable base has the required tables (see AIRTABLE_SCHEMA.md)")
         print("2. Test the system: python main.py status")
         print("3. Run the pipeline: python main.py pipeline")
     else:
-        print("\n❌ Setup completed but configuration test failed")
+        print("\nERROR: Setup completed but configuration test failed")
         print("Please check your API keys and try again")
 
 if __name__ == "__main__":

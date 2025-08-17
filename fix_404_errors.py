@@ -22,7 +22,7 @@ def check_env_file():
     """Check if .env file exists and has required variables"""
     env_file = Path('.env')
     if not env_file.exists():
-        print("❌ .env file not found")
+        print("ERROR: .env file not found")
         return False, {}
     
     env_vars = {}
@@ -106,75 +106,75 @@ def get_base_info(api_key):
         return False, f"Network error: {e}"
 
 def main():
-    print("🔧 Airtable 404 Error Troubleshooting Tool")
+    print("Airtable 404 Error Troubleshooting Tool")
     print("=" * 50)
     
     # Step 1: Check environment file
-    print("\n1️⃣  Checking .env file...")
+    print("\n1. Checking .env file...")
     env_exists, env_vars = check_env_file()
     
     if not env_exists:
-        print("❌ .env file not found. Please create one based on .env.example")
+        print("ERROR: .env file not found. Please create one based on .env.example")
         return
     
     api_key = env_vars.get('AIRTABLE_API_KEY')
     base_id = env_vars.get('AIRTABLE_BASE_ID')
     
-    print(f"✅ Found .env file")
+    print(f"SUCCESS: Found .env file")
     print(f"   API Key: {api_key[:10] if api_key else 'None'}...")
     print(f"   Base ID: {base_id}")
     
     # Step 2: Validate base ID format
-    print("\n2️⃣  Validating base ID format...")
+    print("\n2. Validating base ID format...")
     base_id_valid, base_id_message = validate_base_id_format(base_id)
     
     if base_id_valid:
-        print(f"✅ {base_id_message}")
+        print(f"SUCCESS: {base_id_message}")
     else:
-        print(f"❌ {base_id_message}")
-        print("\n🔍 Base ID Issues Found:")
+        print(f"ERROR: {base_id_message}")
+        print("\nBase ID Issues Found:")
         print("   - Airtable base IDs must start with 'app' followed by 14 characters")
         print("   - Total length should be 17 characters")
         print("   - Example: app1234567890ABC")
         
-        if base_id == "patTcMH6bnGuHb3uT":
-            print("\n💡 Current Issue:")
+        if base_id.startswith('pat'):
+            print("\nCurrent Issue:")
             print("   Your base ID looks like a Personal Access Token (PAT) prefix.")
             print("   You need to get the actual base ID from your Airtable base.")
     
     # Step 3: Try to get available bases
-    print("\n3️⃣  Checking available bases...")
+    print("\n3. Checking available bases...")
     if api_key and api_key != "YOUR_AIRTABLE_API_KEY_HERE":
         success, bases = get_base_info(api_key)
         if success:
-            print(f"✅ Found {len(bases)} available bases:")
+            print(f"SUCCESS: Found {len(bases)} available bases:")
             for base in bases:
                 base_id = base.get('id')
                 base_name = base.get('name')
                 print(f"   - {base_name}: {base_id}")
             
             if bases:
-                print(f"\n💡 Use one of these base IDs in your .env file:")
+                print(f"\nUse one of these base IDs in your .env file:")
                 for base in bases:
                     print(f"   AIRTABLE_BASE_ID={base.get('id')}")
         else:
-            print(f"❌ {bases}")
+            print(f"ERROR: {bases}")
     else:
-        print("⚠️  Skipping (API key missing or placeholder)")
+        print("WARNING: Skipping (API key missing or placeholder)")
     
     # Step 4: Test API connectivity
-    print("\n4️⃣  Testing Airtable API connectivity...")
+    print("\n4. Testing Airtable API connectivity...")
     if api_key and base_id and base_id_valid:
         success, message = test_airtable_api(api_key, base_id)
         if success:
-            print(f"✅ {message}")
+            print(f"SUCCESS: {message}")
         else:
-            print(f"❌ {message}")
+            print(f"ERROR: {message}")
     else:
-        print("⚠️  Skipping (configuration issues found above)")
+        print("WARNING: Skipping (configuration issues found above)")
     
     # Step 5: Provide next steps
-    print("\n5️⃣  Next Steps:")
+    print("\n5. Next Steps:")
     
     if not base_id_valid:
         print("   1. Create an Airtable base following the schema in AIRTABLE_SCHEMA.md")
@@ -186,11 +186,11 @@ def main():
         print("   4. Run this script again to verify")
         print("   5. Test with: python main.py status")
     else:
-        print("   ✅ Configuration looks good!")
+        print("   SUCCESS: Configuration looks good!")
         print("   - Try running: python main.py status")
         print("   - If you still get errors, check that your Airtable base has the 'Applicants' table")
     
-    print("\n📚 Documentation:")
+    print("\nDocumentation:")
     print("   - See AIRTABLE_SCHEMA.md for complete setup instructions")
     print("   - See README.md for usage guide")
 
