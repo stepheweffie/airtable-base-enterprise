@@ -1,0 +1,43 @@
+[run]
+source = .
+branch = True
+omit = 
+    venv/*
+    */venv/*
+    htmlcov/*
+    .coverage*
+    test_*.py
+    *_test.py
+    setup.py
+    conftest.py
+    .tox/*
+    */migrations/*
+    manage.py
+    */settings/*
+    */venv/*
+    */virtualenv/*
+
+[report]
+precision = 2
+show_missing = True
+skip_covered = False
+sort = Cover
+
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    if self.debug:
+    if settings.DEBUG
+    raise AssertionError
+    raise NotImplementedError
+    if 0:
+    if __name__ == .__main__.:
+    class .*\bProtocol\):
+    @(abc\.)?abstractmethod
+
+[html]
+directory = htmlcov
+title = Mercor Airtable Automation - Test Coverage Report
+
+[xml]
+output = coverage.xml
