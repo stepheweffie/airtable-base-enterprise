@@ -46,12 +46,32 @@ The system uses 5 interconnected Airtable tables:
 
 ### Prerequisites
 
-- Python 3.8+
-- Airtable account with API access
-- OpenAI API account
-- Virtual environment (recommended)
+- **Option 1: Docker (Recommended)**:
+  - Docker Desktop or Docker Engine
+  - Docker Compose
+  - Airtable account with API access
+  - OpenAI API account
+
+- **Option 2: Local Python**:
+  - Python 3.8+
+  - Airtable account with API access
+  - OpenAI API account
+  - Virtual environment (recommended)
 
 ### 1. Environment Setup
+
+#### Option A: Docker Setup (Recommended)
+
+```bash
+# Clone/download the project
+cd airtable-contractor-automation
+
+# Copy environment template
+cp .env.example .env
+# Edit .env with your actual API credentials
+```
+
+#### Option B: Local Python Setup
 
 ```bash
 # Clone/download the project
@@ -94,7 +114,18 @@ LLM_MODEL=gpt-3.5-turbo
 
 ### 4. Verification
 
-Test your setup:
+#### Docker Verification
+
+```bash
+# Quick deployment (builds and starts all services)
+./deploy.sh
+
+# Or manual approach:
+docker-compose up -d
+docker-compose exec contractor-automation python main.py status
+```
+
+#### Local Python Verification
 
 ```bash
 # Activate virtual environment
@@ -109,9 +140,86 @@ python main.py status
 
 ## Usage Guide
 
+### Docker Deployment
+
+The system includes a complete Docker setup for easy deployment and scaling:
+
+#### Quick Start with Docker
+
+```bash
+# One-command deployment
+./deploy.sh
+```
+
+This script will:
+- Check Docker is running
+- Verify your `.env` file exists (creates from template if missing)
+- Build the Docker image
+- Start all services with docker-compose
+- Show container status and available commands
+
+#### Manual Docker Commands
+
+```bash
+# Build the image
+docker build -t contractor-automation:latest .
+
+# Start services
+docker-compose up -d
+
+# View logs
+docker-compose logs -f contractor-automation
+
+# Execute commands in container
+docker-compose exec contractor-automation python main.py status
+docker-compose exec contractor-automation python main.py pipeline
+
+# Stop services
+docker-compose down
+```
+
+#### Docker Services
+
+The `docker-compose.yml` includes:
+
+- **contractor-automation**: Main application container
+- **redis** (optional): For caching and session management
+- **postgres** (optional): For local data storage if needed
+
+#### Environment Variables for Docker
+
+Ensure your `.env` file contains:
+
+```bash
+# Required
+AIRTABLE_API_KEY=your_token
+AIRTABLE_BASE_ID=your_base_id
+OPENAI_API_KEY=your_openai_key
+
+# Optional Docker settings
+POSTGRES_PASSWORD=changeme
+MAX_TOKENS_PER_REQUEST=1500
+LLM_MODEL=gpt-3.5-turbo
+```
+
+#### Production Docker Deployment
+
+For production use:
+
+```bash
+# Build with specific tag
+docker build -t contractor-automation:v1.0 .
+
+# Run with resource limits
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+# Monitor with healthchecks
+docker-compose ps
+```
+
 ### Command Line Interface
 
-The system provides a unified CLI through `main.py`:
+#### Local Python Usage
 
 ```bash
 # Show system status
@@ -130,6 +238,18 @@ python main.py evaluate
 
 # Force re-processing
 python main.py pipeline --force
+```
+
+#### Docker Container Usage
+
+```bash
+# All the same commands work in Docker:
+docker-compose exec contractor-automation python main.py status
+docker-compose exec contractor-automation python main.py pipeline
+docker-compose exec contractor-automation python main.py pipeline APPLICANT_123
+
+# Interactive shell in container
+docker-compose exec contractor-automation /bin/bash
 ```
 
 ### Individual Component Usage
@@ -423,10 +543,21 @@ airtable-contractor-automation/
 ├── json_decompressor.py      # JSON decompression automation
 ├── shortlister.py           # Shortlisting automation
 ├── llm_evaluator.py         # LLM evaluation system
+├── sample_data_generator.py  # Test data generator
+├── test_basic.py            # Unit tests
 ├── README.md               # This documentation
+├── QUICK_START.md          # Quick start guide
 ├── AIRTABLE_SCHEMA.md      # Detailed schema documentation
 ├── .env.example           # Environment variables template
-└── requirements.txt       # Python dependencies (if created)
+├── requirements.txt       # Python dependencies
+├── requirements-dev.txt   # Development dependencies
+├── Dockerfile            # Docker image configuration
+├── docker-compose.yml    # Docker services configuration
+├── .dockerignore        # Docker build context exclusions
+├── deploy.sh            # Quick deployment script
+└── .github/             # CI/CD workflows
+    └── workflows/
+        └── ci-cd.yml
 ```
 
 This system provides a complete, production-ready solution for contractor application management with extensive customization options and robust error handling.

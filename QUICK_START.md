@@ -39,6 +39,19 @@ This system provides:
 
 ### Step 1: Environment Setup (2 minutes)
 
+#### Option A: Docker (Recommended)
+
+```bash
+# Navigate to project directory
+cd airtable-contractor-automation
+
+# Copy environment template
+cp .env.example .env
+# Edit .env with your API credentials
+```
+
+#### Option B: Local Python
+
 ```bash
 # Navigate to project directory
 cd airtable-contractor-automation
@@ -61,6 +74,19 @@ pip install -r requirements.txt
    ```
 
 ### Step 3: Verify Setup (1 minute)
+
+#### Docker:
+
+```bash
+# One-command deployment
+./deploy.sh
+
+# Or check manually:
+docker-compose up -d
+docker-compose exec contractor-automation python main.py status
+```
+
+#### Local Python:
 
 ```bash
 # Test configuration
@@ -86,16 +112,25 @@ python sample_data_generator.py
 
 ### Step 5: Run Complete Pipeline (2 minutes)
 
+#### Docker:
+
+```bash
+# Process all sample applicants through the full automation
+docker-compose exec contractor-automation python main.py pipeline
+```
+
+#### Local Python:
+
 ```bash
 # Process all sample applicants through the full automation
 python main.py pipeline
-
-# Expected results:
-# - 5 applicants compressed to JSON
-# - 2 applicants shortlisted (SAMPLE_001, SAMPLE_004)
-# - 3 applicants rejected
-# - All applicants evaluated by LLM with summaries and scores
 ```
+
+**Expected results:**
+- 5 applicants compressed to JSON
+- 2 applicants shortlisted (SAMPLE_001, SAMPLE_004)
+- 3 applicants rejected  
+- All applicants evaluated by LLM with summaries and scores
 
 ### Step 6: Verify Results (1 minute)
 
