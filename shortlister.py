@@ -1,5 +1,5 @@
 """
-Shortlisting Automation Script for Mercor Airtable Automation
+Shortlisting Automation Script for Airtable Contractor Automation
 
 This script evaluates candidates against defined criteria and automatically 
 populates the Shortlisted Leads table for qualifying applicants.

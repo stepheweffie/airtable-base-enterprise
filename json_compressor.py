@@ -1,5 +1,5 @@
 """
-JSON Compression Script for Mercor Airtable Automation
+JSON Compression Script for Airtable Contractor Automation
 
 This script gathers data from the three linked tables (Personal Details, Work Experience, 
 Salary Preferences) and builds a single JSON object stored in the Applicants table.

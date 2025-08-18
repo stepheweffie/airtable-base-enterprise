@@ -1,4 +1,4 @@
-# Mercor Contractor Application Automation System
+# Airtable Contractor Application Automation System
 
 A comprehensive Airtable-based system for collecting, processing, and evaluating contractor applications using multi-table forms, JSON compression/decompression, automated shortlisting, and LLM evaluation.
 
@@ -55,7 +55,7 @@ The system uses 5 interconnected Airtable tables:
 
 ```bash
 # Clone/download the project
-cd mercor-airtable-automation
+cd airtable-contractor-automation
 
 # Create virtual environment
 python3 -m venv venv
@@ -69,7 +69,7 @@ pip install airtable-python-wrapper openai python-dotenv requests
 
 Follow the detailed schema setup in [AIRTABLE_SCHEMA.md](AIRTABLE_SCHEMA.md):
 
-1. Create a new Airtable base called "Mercor Contractor Applications"
+1. Create a new Airtable base called "Contractor Applications"
 2. Set up all 5 tables with the specified fields and relationships
 3. Create forms for data collection
 4. Generate API credentials (Personal Access Token)
@@ -416,7 +416,7 @@ For additional support:
 ## File Structure
 
 ```
-mercor-airtable-automation/
+airtable-contractor-automation/
 ├── config.py                  # Configuration and constants
 ├── main.py                   # Main orchestrator script
 ├── json_compressor.py        # JSON compression automation

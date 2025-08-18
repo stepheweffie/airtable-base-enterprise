@@ -1,7 +1,7 @@
 # Airtable Schema Documentation
 
 ## Overview
-This document outlines the complete Airtable base schema for the Mercor contractor application system. The base consists of 5 interconnected tables designed to capture, process, and evaluate contractor applications.
+This document outlines the complete Airtable base schema for the contractor application automation system. The base consists of 5 interconnected tables designed to capture, process, and evaluate contractor applications.
 
 ## Table Structure
 
@@ -132,7 +132,7 @@ Applicants (1) ←→ (1) Shortlisted Leads
 
 ## Setup Instructions
 
-1. **Create New Base**: Create a new Airtable base called "Mercor Contractor Applications"
+1. **Create New Base**: Create a new Airtable base called "Contractor Applications"
 
 2. **Create Tables**: Create all 5 tables with the exact names specified above
 

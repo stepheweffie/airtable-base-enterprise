@@ -237,7 +237,7 @@ jobs:
         context: .
         push: true
         tags: |
-          your-dockerhub-username/mercor-automation:latest
-          your-dockerhub-username/mercor-automation:${{ github.event.release.tag_name }}
+          your-dockerhub-username/contractor-automation:latest
+          your-dockerhub-username/contractor-automation:${{ github.event.release.tag_name }}
         cache-from: type=gha
         cache-to: type=gha,mode=max

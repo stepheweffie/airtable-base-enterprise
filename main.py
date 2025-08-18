@@ -1,5 +1,5 @@
 """
-Main Orchestrator Script for Mercor Airtable Automation System
+Main Orchestrator Script for Airtable Contractor Automation System
 
 This script coordinates the complete automation pipeline:
 1. JSON compression
@@ -23,7 +23,7 @@ import config
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-class MercorAutomation:
+class ContractorAutomation:
     def __init__(self):
         """Initialize the main automation orchestrator"""
         try:
@@ -32,7 +32,7 @@ class MercorAutomation:
             self.decompressor = JSONDecompressor()
             self.shortlister = Shortlister()
             self.evaluator = LLMEvaluator()
-            logger.info("Successfully initialized Mercor Automation System")
+            logger.info("Successfully initialized Contractor Automation System")
         except Exception as e:
             logger.error(f"Failed to initialize automation system: {e}")
             raise
@@ -148,7 +148,7 @@ class MercorAutomation:
 
 def main():
     """Main function with command line interface"""
-    parser = argparse.ArgumentParser(description="Mercor Airtable Automation System")
+    parser = argparse.ArgumentParser(description="Airtable Contractor Automation System")
     
     # Main commands
     parser.add_argument('command', nargs='?', default='status',
@@ -170,7 +170,7 @@ def main():
         logging.getLogger().setLevel(logging.DEBUG)
     
     try:
-        automation = MercorAutomation()
+        automation = ContractorAutomation()
         
         if args.command == 'pipeline':
             # Run full pipeline

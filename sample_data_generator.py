@@ -1,5 +1,5 @@
 """
-Sample Data Generator for Mercor Airtable Automation System
+Sample Data Generator for Airtable Contractor Automation System
 
 This script generates realistic test data for validating the complete automation pipeline.
 It creates sample applicants with varying profiles to test different scenarios.

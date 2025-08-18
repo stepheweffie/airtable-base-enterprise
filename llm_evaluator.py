@@ -1,5 +1,5 @@
 """
-LLM Evaluation System for Mercor Airtable Automation
+LLM Evaluation System for Airtable Contractor Automation
 
 This script uses OpenAI's API to evaluate, enrich, and sanity-check each application.
 It provides summaries, quality scores, and follow-up questions based on compressed JSON data.

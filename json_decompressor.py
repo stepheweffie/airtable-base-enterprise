@@ -1,5 +1,5 @@
 """
-JSON Decompression Script for Mercor Airtable Automation
+JSON Decompression Script for Airtable Contractor Automation
 
 This script reads the compressed JSON from the Applicants table and upserts
 the data back to the child tables (Personal Details, Work Experience, Salary Preferences).

@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Mercor Airtable Automation - Quick Deployment Script
+# Airtable Contractor Automation - Quick Deployment Script
 
 set -e
 
-echo "Mercor Airtable Automation - Deployment Script"
+echo "Airtable Contractor Automation - Deployment Script"
 echo "=================================================="
 
 # Check if Docker is running
@@ -28,7 +28,7 @@ echo "SUCCESS: Environment file found"
 
 # Build the Docker image
 echo "INFO: Building Docker image..."
-docker build -t mercor-automation:latest .
+docker build -t contractor-automation:latest .
 
 echo "SUCCESS: Docker image built successfully"
 
@@ -46,9 +46,9 @@ echo ""
 echo "SUCCESS: Deployment complete!"
 echo ""
 echo "Available commands:"
-echo "  docker-compose logs -f mercor-automation  # View logs"
-echo "  docker-compose exec mercor-automation python main.py status  # Check status"
-echo "  docker-compose exec mercor-automation python main.py pipeline  # Run pipeline"
+echo "  docker-compose logs -f contractor-automation  # View logs"
+echo "  docker-compose exec contractor-automation python main.py status  # Check status"
+echo "  docker-compose exec contractor-automation python main.py pipeline  # Run pipeline"
 echo "  docker-compose down  # Stop all services"
 echo ""
 echo "For more information, see README.md"

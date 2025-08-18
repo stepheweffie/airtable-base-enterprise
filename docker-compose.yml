@@ -1,11 +1,11 @@
 version: '3.8'
 
 services:
-  mercor-automation:
+  contractor-automation:
     build: 
       context: .
       dockerfile: Dockerfile
-    container_name: mercor-automation
+    container_name: contractor-automation
     environment:
       - AIRTABLE_API_KEY=${AIRTABLE_API_KEY}
       - AIRTABLE_BASE_ID=${AIRTABLE_BASE_ID}
@@ -31,7 +31,7 @@ services:
   # Optional: Redis for caching (if needed in future)
   redis:
     image: redis:7-alpine
-    container_name: mercor-redis
+    container_name: contractor-redis
     ports:
       - "6379:6379"
     command: redis-server --appendonly yes
@@ -42,10 +42,10 @@ services:
   # Optional: PostgreSQL for local data storage (if needed)
   postgres:
     image: postgres:15-alpine
-    container_name: mercor-postgres
+    container_name: contractor-postgres
     environment:
-      POSTGRES_DB: mercor_automation
-      POSTGRES_USER: mercor
+      POSTGRES_DB: contractor_automation
+      POSTGRES_USER: contractor
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
     ports:
       - "5432:5432"
@@ -59,4 +59,4 @@ volumes:
 
 networks:
   default:
-    name: mercor-network
+    name: contractor-network

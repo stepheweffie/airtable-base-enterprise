@@ -44,6 +44,6 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
 CMD ["python", "main.py", "status"]
 
 # Labels for metadata
-LABEL maintainer="Mercor Team"
+LABEL maintainer="Development Team"
 LABEL description="Airtable Contractor Application Automation System"
 LABEL version="1.0"

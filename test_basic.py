@@ -1,5 +1,5 @@
 """
-Basic unit tests for the Mercor Airtable Automation System
+Basic unit tests for the Airtable Contractor Automation System
 
 These tests validate core functionality and are run in the CI/CD pipeline.
 """
@@ -164,7 +164,7 @@ def test_main_cli_help():
                           capture_output=True, text=True)
     
     assert result.returncode == 0
-    assert 'Mercor Airtable Automation System' in result.stdout
+    assert 'Airtable Contractor Automation System' in result.stdout
     assert 'pipeline' in result.stdout
     assert 'status' in result.stdout
     

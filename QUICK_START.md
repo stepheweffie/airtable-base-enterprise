@@ -1,4 +1,4 @@
-# Mercor Airtable Automation - Quick Start Guide
+# Airtable Contractor Automation - Quick Start Guide
 
 ## Project Summary
 
@@ -41,7 +41,7 @@ This system provides:
 
 ```bash
 # Navigate to project directory
-cd mercor-airtable-automation
+cd airtable-contractor-automation
 
 # Activate virtual environment
 source venv/bin/activate

@@ -1,5 +1,5 @@
 """
-Configuration module for Mercor Airtable Automation System
+Configuration module for Airtable Contractor Automation System
 """
 import os
 from dotenv import load_dotenv
